@@ -1,0 +1,15 @@
+*__pycache__/
+*.pyc
+
+logs/
+.log
+
+douth.txt
+nextCommit.txt
+
+#Secrets
+.venv/
+.env
+.vscode/
+*.db
+.sqlite3
