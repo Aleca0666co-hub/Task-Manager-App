@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.schemas.schemas import TaskCreate, TaskRead
-from app.crud.task import create_task, get_tasks,update_tasks ,delete_task 
+from todo_app.app.crud.v1.task import create_task, get_tasks,update_tasks ,delete_task 
 from app.utils.exceptions import TaskNotFoundError
 from app.database import get_db
 from fastapi import status,HTTPException

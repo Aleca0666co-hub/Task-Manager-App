@@ -19,7 +19,7 @@ It includes REST endpoints, validations, and a modular structure designed to sca
 todo_app/
 ├── app/
 │   ├── main.py             
-│   ├── config.py           
+│   ├── settings.py           
 │   ├── models/
 │   │   ├── base.py         
 │   │   └── task.py         
@@ -60,7 +60,10 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 `
 
-Automatic documentation: http://localhost:8000/docs
+Automatic documentation:  
+- http://localhost:8000/docs
+- http://localhost:8000/redoc
+
 
 ## 🧪 Testing
 Run tests with:
@@ -91,7 +94,7 @@ Incluye endpoints REST, validaciones y estructura modular para escalar.*
 todo_app/
 ├── app/
 │   ├── main.py             
-│   ├── config.py           
+│   ├── settings.py           
 │   ├── models/
 │   │   ├── base.py         
 │   │   └── task.py         
@@ -131,7 +134,9 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 `
 
-Documentación automática: http://localhost:8000/docs
+Documentación automática: 
+- http://localhost:8000/docs
+- http://localhost:8000/redoc
 
 ## 🧪 Testing  
 Ejecuta pruebas con:

@@ -1,9 +1,11 @@
 *__pycache__/
 *.pyc
 
+#debugging tools 
 logs/
 .log
 
+#Personal
 douth.txt
 nextCommit.txt
 

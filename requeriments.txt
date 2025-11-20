@@ -1,0 +1,21 @@
+# Core framework
+fastapi==0.115.0
+
+# ASGI server
+uvicorn[standard]==0.32.0
+
+# ORM
+SQLAlchemy==2.0.36
+
+# Validaciones y settings
+pydantic==2.9.2
+pydantic-settings==2.5.2
+
+# Testing (opcional pero recomendado)
+pytest==8.3.3
+httpx==0.27.2
+
+# Formateo y linting (opcional, buenas prácticas)
+black==24.10.0
+flake8==7.1.1
+isort==5.13.2
