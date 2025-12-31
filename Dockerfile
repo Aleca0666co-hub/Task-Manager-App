@@ -1,37 +1,33 @@
-# Simple Dockerfile for deploying to Render using Poetry
-FROM python:3.11-slim
+FROM python:3.12-slim
 
-# Keep Python output unbuffered (useful for container logs)
+# Unbuffered stdout/stderr, no pyc files
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
-
-# Default port (Render provides $PORT at runtime)
 ENV PORT=8000
 
 WORKDIR /app
 
-# Install system deps required by some Python packages and curl to install Poetry
+# Install required system packages (add libpq-dev if you use psycopg2)
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends build-essential curl \
+    && apt-get install -y --no-install-recommends build-essential curl libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Poetry (official installer) and make it available in PATH
-RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/opt/poetry python \
+# Install Poetry and make it available system-wide
+RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/opt/poetry python3 \
     && ln -s /opt/poetry/bin/poetry /usr/local/bin/poetry
 
-# Copy dependency metadata first for layer caching
+# Copy dependency files first (cache layer)
 COPY pyproject.toml poetry.lock* /app/
 
-# Install dependencies system-wide (disable creating virtualenvs so packages are available in container)
+# Install dependencies into the system Python (disable virtualenv creation)
 RUN poetry config virtualenvs.create false \
-    && poetry install --no-interaction --no-ansi --no-root
+    && poetry install --no-interaction --no-ansi --no-root --no-dev
 
-# Copy the application code
+# Copy application code
 COPY . /app
 
-# Expose the port (informational)
+# Informational port
 EXPOSE ${PORT}
 
-# Use uvicorn directly for simplicity. Render will set $PORT at runtime.
-# The shell form allows $PORT to be substituted by the runtime environment.
+# Run the app with uvicorn (Render provides PORT at runtime)
 CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
